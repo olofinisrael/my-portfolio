@@ -1,1 +1,1211 @@
-# my-portfolio
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Israel Olubukola — AI Automation Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #030712;
+  --bg2: #060d1f;
+  --surface: rgba(255,255,255,0.035);
+  --surface2: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(99,179,255,0.2);
+  --blue: #3b9eff;
+  --blue2: #60b8ff;
+  --purple: #a855f7;
+  --purple2: #c084fc;
+  --glow-blue: rgba(59,158,255,0.15);
+  --glow-purple: rgba(168,85,247,0.15);
+  --text: #f1f5f9;
+  --muted: #64748b;
+  --muted2: #94a3b8;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  line-height:1.6;
+}
+
+/* ─── NOISE OVERLAY ─────────────────────── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;opacity:.4;
+}
+
+/* ─── ANIMATED BG GRID ───────────────────── */
+.grid-bg{
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(59,158,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,158,255,0.04) 1px, transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;z-index:0;
+}
+
+/* ─── NAV ────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:20px 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(3,7,18,0.7);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  transition:all .3s;
+}
+.nav-logo{
+  font-family:'Syne',sans-serif;
+  font-weight:800;font-size:1.2rem;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  text-decoration:none;
+}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  color:var(--muted2);text-decoration:none;font-size:.9rem;font-weight:500;
+  transition:color .3s;letter-spacing:.03em;
+}
+.nav-links a:hover{color:var(--blue);}
+.nav-cta{
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;padding:10px 24px;border-radius:50px;
+  font-size:.85rem;font-weight:600;text-decoration:none;
+  transition:opacity .3s,transform .3s;letter-spacing:.03em;
+}
+.nav-cta:hover{opacity:.85;transform:translateY(-1px);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--muted2);border-radius:2px;transition:.3s;}
+.mobile-nav{display:none;flex-direction:column;gap:1rem;padding:20px 5%;background:rgba(3,7,18,.95);border-bottom:1px solid var(--border);}
+.mobile-nav a{color:var(--muted2);text-decoration:none;font-size:1rem;}
+.mobile-nav.open{display:flex;}
+
+/* ─── SECTIONS ───────────────────────────── */
+section{position:relative;z-index:1;}
+
+/* ─── HERO ───────────────────────────────── */
+#hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:120px 5% 80px;
+  text-align:center;
+  overflow:hidden;
+}
+.hero-orbs{position:absolute;inset:0;pointer-events:none;}
+.orb{
+  position:absolute;border-radius:50%;
+  filter:blur(80px);opacity:.35;
+  animation:pulse 8s ease-in-out infinite;
+}
+.orb1{width:600px;height:600px;background:radial-gradient(circle,var(--blue),transparent 70%);top:-200px;left:-100px;}
+.orb2{width:500px;height:500px;background:radial-gradient(circle,var(--purple),transparent 70%);bottom:-150px;right:-100px;animation-delay:-4s;}
+.orb3{width:300px;height:300px;background:radial-gradient(circle,#0ea5e9,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-2s;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--border2);
+  padding:8px 20px;border-radius:50px;margin-bottom:2rem;
+  font-size:.8rem;color:var(--blue2);font-weight:500;letter-spacing:.05em;
+  animation:fadeUp .8s ease both;
+}
+.hero-badge-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--blue);
+  box-shadow:0 0 8px var(--blue);animation:blink 2s infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+h1.hero-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.4rem,6vw,5rem);
+  font-weight:800;line-height:1.1;
+  margin-bottom:1.5rem;
+  animation:fadeUp .8s .15s ease both;
+}
+.hero-title span{
+  background:linear-gradient(135deg,var(--blue),var(--purple2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{
+  font-size:clamp(.9rem,1.5vw,1.1rem);
+  color:var(--blue2);font-weight:500;
+  letter-spacing:.08em;margin-bottom:1.5rem;
+  animation:fadeUp .8s .25s ease both;
+}
+.hero-desc{
+  max-width:580px;margin:0 auto 2.5rem;
+  color:var(--muted2);font-size:1rem;line-height:1.8;
+  animation:fadeUp .8s .35s ease both;
+}
+.hero-btns{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp .8s .45s ease both;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;padding:14px 32px;border-radius:50px;
+  font-size:.95rem;font-weight:600;text-decoration:none;
+  transition:transform .3s,box-shadow .3s;
+  box-shadow:0 0 30px rgba(59,158,255,.3);
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 40px rgba(59,158,255,.4);}
+.btn-secondary{
+  background:var(--surface);border:1px solid var(--border2);
+  color:var(--blue2);padding:14px 32px;border-radius:50px;
+  font-size:.95rem;font-weight:600;text-decoration:none;
+  backdrop-filter:blur(12px);
+  transition:background .3s,transform .3s,border-color .3s;
+}
+.btn-secondary:hover{background:var(--surface2);transform:translateY(-3px);border-color:var(--blue);}
+.hero-stats{
+  display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;
+  margin-top:4rem;
+  animation:fadeUp .8s .6s ease both;
+}
+.stat{text-align:center;}
+.stat-num{
+  font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;
+  background:linear-gradient(135deg,var(--blue),var(--purple2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.stat-label{font-size:.8rem;color:var(--muted);letter-spacing:.05em;margin-top:4px;}
+.hero-visual{
+  position:absolute;inset:0;pointer-events:none;
+  display:flex;align-items:center;justify-content:center;
+}
+.circuit-svg{opacity:.06;width:min(800px,90vw);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─── SECTION BASE ───────────────────────── */
+.section-pad{padding:100px 5%;}
+.section-label{
+  font-size:.75rem;letter-spacing:.15em;color:var(--blue);
+  font-weight:600;text-transform:uppercase;margin-bottom:1rem;
+}
+.section-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(1.8rem,4vw,3rem);font-weight:800;
+  line-height:1.2;margin-bottom:1.5rem;
+}
+.section-title span{
+  background:linear-gradient(135deg,var(--blue),var(--purple2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.section-desc{color:var(--muted2);max-width:560px;line-height:1.8;font-size:.95rem;}
+
+/* ─── ABOUT ──────────────────────────────── */
+#about{background:var(--bg2);}
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;
+  max-width:1200px;margin:0 auto;
+}
+.about-image-wrap{position:relative;}
+.about-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:2.5rem;
+  backdrop-filter:blur(20px);
+  position:relative;overflow:hidden;
+}
+.about-card::before{
+  content:'';position:absolute;top:-1px;left:30px;right:30px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--blue),transparent);
+}
+.about-avatar{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;
+  margin-bottom:1.2rem;
+  box-shadow:0 0 30px rgba(59,158,255,.3);
+}
+.about-name{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;}
+.about-role{color:var(--blue);font-size:.85rem;font-weight:500;margin:.3rem 0 1rem;letter-spacing:.05em;}
+.about-bio{color:var(--muted2);font-size:.9rem;line-height:1.8;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem;}
+.tag{
+  background:rgba(59,158,255,.1);border:1px solid rgba(59,158,255,.2);
+  color:var(--blue2);padding:5px 14px;border-radius:50px;
+  font-size:.75rem;font-weight:500;letter-spacing:.03em;
+  transition:background .3s;
+}
+.tag:hover{background:rgba(59,158,255,.2);}
+.tag.purple{
+  background:rgba(168,85,247,.1);border-color:rgba(168,85,247,.2);color:var(--purple2);
+}
+.about-text .section-desc{max-width:100%;}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;}
+.feature-item{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:1.2rem;
+  transition:border-color .3s,transform .3s;
+}
+.feature-item:hover{border-color:var(--border2);transform:translateY(-2px);}
+.feature-icon{font-size:1.5rem;margin-bottom:.5rem;}
+.feature-title{font-weight:600;font-size:.85rem;margin-bottom:.3rem;}
+.feature-desc{font-size:.78rem;color:var(--muted);line-height:1.6;}
+
+/* ─── EXPERIENCE ─────────────────────────── */
+#experience{
+  background:linear-gradient(180deg,var(--bg),var(--bg2));
+}
+.exp-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+  max-width:1200px;margin:3rem auto 0;
+}
+.exp-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;padding:2rem;
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+  position:relative;overflow:hidden;
+}
+.exp-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--glow-blue),transparent);
+  opacity:0;transition:opacity .3s;border-radius:20px;
+}
+.exp-card:hover{transform:translateY(-6px);border-color:var(--border2);box-shadow:0 20px 60px rgba(59,158,255,.1);}
+.exp-card:hover::after{opacity:1;}
+.exp-num{
+  font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;
+  background:linear-gradient(135deg,var(--blue),var(--purple2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1;margin-bottom:.5rem;
+}
+.exp-label{font-size:.85rem;color:var(--muted2);line-height:1.6;}
+.exp-list{
+  max-width:1200px;margin:3rem auto 0;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;
+}
+.exp-list-item{
+  display:flex;align-items:flex-start;gap:1rem;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:1.2rem;
+  transition:border-color .3s;
+}
+.exp-list-item:hover{border-color:var(--border2);}
+.exp-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--blue);margin-top:6px;flex-shrink:0;
+  box-shadow:0 0 8px var(--blue);
+}
+.exp-item-text{font-size:.88rem;color:var(--muted2);line-height:1.6;}
+.exp-item-text strong{color:var(--text);display:block;margin-bottom:.2rem;font-size:.92rem;}
+
+/* ─── SERVICES ───────────────────────────── */
+#services{background:var(--bg2);}
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+  max-width:1200px;margin:3rem auto 0;
+}
+.service-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;padding:2rem;
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+  cursor:default;position:relative;overflow:hidden;
+}
+.service-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--blue),var(--purple));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s;
+}
+.service-card:hover{transform:translateY(-6px);border-color:var(--border2);box-shadow:0 20px 60px rgba(59,158,255,.1);}
+.service-card:hover::before{transform:scaleX(1);}
+.service-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(59,158,255,.15),rgba(168,85,247,.15));
+  border:1px solid rgba(59,158,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;margin-bottom:1.2rem;
+}
+.service-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.6rem;}
+.service-desc{font-size:.85rem;color:var(--muted2);line-height:1.7;}
+
+/* ─── PROJECTS ───────────────────────────── */
+#projects{background:var(--bg);}
+.projects-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+  max-width:1200px;margin:3rem auto 0;
+}
+.project-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+  cursor:pointer;
+}
+.project-card:hover{transform:translateY(-8px);border-color:var(--border2);box-shadow:0 24px 70px rgba(59,158,255,.12);}
+.project-img{
+  height:180px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#0a1628,#0d1f3c);
+  display:flex;align-items:center;justify-content:center;
+}
+.project-img-inner{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:3rem;
+  transition:transform .4s;
+}
+.project-card:hover .project-img-inner{transform:scale(1.1);}
+.project-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(59,158,255,.1),rgba(168,85,247,.1));
+}
+.project-body{padding:1.4rem;}
+.project-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.5rem;}
+.project-desc{font-size:.82rem;color:var(--muted2);margin-bottom:1rem;line-height:1.6;}
+.project-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;}
+.project-tag{
+  background:rgba(59,158,255,.08);border:1px solid rgba(59,158,255,.15);
+  color:var(--blue2);padding:3px 10px;border-radius:50px;font-size:.7rem;font-weight:500;
+}
+.btn-view{
+  display:inline-flex;align-items:center;gap:6px;
+  color:var(--blue);font-size:.82rem;font-weight:600;
+  text-decoration:none;letter-spacing:.02em;
+  transition:gap .3s,color .3s;
+}
+.btn-view:hover{color:var(--blue2);gap:10px;}
+
+/* ─── CONTACT ────────────────────────────── */
+#contact{
+  background:var(--bg2);
+  text-align:center;
+}
+.contact-inner{
+  max-width:700px;margin:0 auto;
+}
+.contact-btns{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  margin-top:2.5rem;
+}
+.btn-wa{
+  background:linear-gradient(135deg,#25d366,#128c7e);
+  color:#fff;padding:14px 28px;border-radius:50px;
+  font-size:.9rem;font-weight:600;text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+  transition:transform .3s,box-shadow .3s;
+}
+.btn-wa:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(37,211,102,.3);}
+.btn-fv{
+  background:linear-gradient(135deg,#1dbf73,#19a463);
+  color:#fff;padding:14px 28px;border-radius:50px;
+  font-size:.9rem;font-weight:600;text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+  transition:transform .3s,box-shadow .3s;
+}
+.btn-fv:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(29,191,115,.3);}
+
+/* ─── FOOTER ─────────────────────────────── */
+footer{
+  padding:2rem 5%;text-align:center;
+  border-top:1px solid var(--border);
+  color:var(--muted);font-size:.82rem;
+}
+footer span{color:var(--blue);font-weight:500;}
+
+/* ─── PROJECT PAGES ──────────────────────── */
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+.page-hero{
+  padding:130px 5% 70px;
+  background:linear-gradient(135deg,var(--bg),var(--bg2));
+  position:relative;overflow:hidden;
+  text-align:center;
+}
+.page-hero-orb{
+  position:absolute;width:400px;height:400px;border-radius:50%;
+  filter:blur(100px);opacity:.2;pointer-events:none;
+}
+.page-hero-orb1{background:var(--blue);top:-100px;left:-100px;}
+.page-hero-orb2{background:var(--purple);bottom:-100px;right:-100px;}
+.page-back{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--blue);font-size:.85rem;font-weight:500;
+  text-decoration:none;margin-bottom:2rem;
+  transition:gap .3s;
+}
+.page-back:hover{gap:12px;}
+.page-title{
+  font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;margin-bottom:1rem;
+}
+.page-subtitle{color:var(--muted2);font-size:1rem;max-width:600px;margin:0 auto 2rem;}
+.page-img{
+  max-width:900px;margin:0 auto;
+  height:320px;border-radius:24px;overflow:hidden;
+  background:linear-gradient(135deg,#0a1628,#0d1f3c);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:5rem;
+  box-shadow:0 30px 80px rgba(59,158,255,.1);
+}
+.page-content{max-width:900px;margin:0 auto;padding:60px 5%;}
+.page-section{margin-bottom:3rem;}
+.page-section h3{
+  font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;
+  color:var(--blue);margin-bottom:1rem;
+  padding-bottom:.6rem;border-bottom:1px solid var(--border);
+}
+.page-section p{color:var(--muted2);line-height:1.8;font-size:.95rem;}
+.page-section ul{
+  list-style:none;display:flex;flex-direction:column;gap:.6rem;
+}
+.page-section ul li{
+  display:flex;gap:.8rem;align-items:flex-start;
+  color:var(--muted2);font-size:.9rem;line-height:1.7;
+}
+.page-section ul li::before{
+  content:'→';color:var(--blue);flex-shrink:0;margin-top:2px;
+}
+.tools-grid{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.5rem;}
+.tool-chip{
+  background:rgba(59,158,255,.1);border:1px solid rgba(59,158,255,.2);
+  color:var(--blue2);padding:6px 16px;border-radius:50px;font-size:.82rem;font-weight:500;
+}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.5rem;}
+.result-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  padding:1.5rem;text-align:center;
+}
+.result-num{
+  font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;
+  background:linear-gradient(135deg,var(--blue),var(--purple2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.result-label{font-size:.78rem;color:var(--muted);margin-top:.3rem;}
+.workflow-placeholder{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;padding:3rem;text-align:center;
+  color:var(--muted);font-size:.9rem;margin-top:.5rem;
+}
+.workflow-placeholder span{display:block;font-size:2.5rem;margin-bottom:.8rem;}
+.cta-section{
+  background:linear-gradient(135deg,rgba(59,158,255,.1),rgba(168,85,247,.1));
+  border:1px solid var(--border2);border-radius:24px;
+  padding:3rem;text-align:center;margin:2rem 0 4rem;
+}
+.cta-title{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;margin-bottom:.8rem;}
+.cta-desc{color:var(--muted2);margin-bottom:1.5rem;font-size:.95rem;}
+
+/* ─── STEP LIST ──────────────────────────── */
+.steps{display:flex;flex-direction:column;gap:1rem;margin-top:.5rem;}
+.step{
+  display:flex;gap:1.2rem;align-items:flex-start;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:1.2rem;
+}
+.step-num{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:.8rem;font-weight:800;color:#fff;
+}
+.step-text{font-size:.88rem;color:var(--muted2);line-height:1.7;}
+.step-text strong{color:var(--text);display:block;margin-bottom:.2rem;}
+
+/* ─── RESPONSIVE ─────────────────────────── */
+@media(max-width:768px){
+  nav{padding:16px 5%;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .about-grid{grid-template-columns:1fr;}
+  .exp-grid{grid-template-columns:1fr 1fr;}
+  .exp-list{grid-template-columns:1fr;}
+  .services-grid{grid-template-columns:1fr;}
+  .projects-grid{grid-template-columns:1fr 1fr;}
+  .results-grid{grid-template-columns:1fr;}
+  .about-features{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .projects-grid{grid-template-columns:1fr;}
+  .exp-grid{grid-template-columns:1fr;}
+  .hero-stats{gap:1.2rem;}
+}
+
+/* ─── SCROLL REVEAL ──────────────────────── */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+/* Fallback: ensure content is always visible even if JS doesn't fire */
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;}}
+
+/* ─── DIVIDER ────────────────────────────── */
+.gradient-line{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--blue),var(--purple),transparent);
+  margin:0;
+}
+
+/* ─── GLOW TEXT ──────────────────────────── */
+.glow{text-shadow:0 0 40px rgba(59,158,255,.4);}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo" onclick="showHome()">IO.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#experience" onclick="closeMobile()">Experience</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#projects" onclick="closeMobile()">Projects</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- HOME PAGE -->
+<!-- ════════════════════════════════════════ -->
+<div id="homePage" class="page active">
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+  <!-- Circuit bg SVG -->
+  <svg class="circuit-svg" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:0;">
+    <path d="M100 300 L200 300 L200 150 L400 150 L400 300 L600 300" stroke="#3b9eff" stroke-width="1.5" stroke-dasharray="4 6"/>
+    <circle cx="200" cy="300" r="4" fill="#3b9eff"/>
+    <circle cx="400" cy="150" r="4" fill="#a855f7"/>
+    <circle cx="600" cy="300" r="4" fill="#3b9eff"/>
+    <path d="M150 400 L250 400 L250 250 L450 250 L450 400 L650 400" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="4 6"/>
+    <circle cx="250" cy="400" r="4" fill="#a855f7"/>
+    <circle cx="450" cy="250" r="4" fill="#3b9eff"/>
+    <path d="M50 200 L150 200 L150 450 L350 450 L350 200 L550 200 L550 450 L750 450" stroke="#0ea5e9" stroke-width="1" stroke-dasharray="3 8"/>
+    <circle cx="350" cy="300" r="6" fill="none" stroke="#3b9eff" stroke-width="1.5"/>
+    <circle cx="400" cy="300" r="12" fill="none" stroke="#a855f7" stroke-width="1"/>
+  </svg>
+  <div style="position:relative;z-index:2;max-width:800px;margin:0 auto;">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Available for Projects
+    </div>
+    <h1 class="hero-title">
+      I Build Intelligent<br>
+      <span>Automation Systems</span><br>
+      That Run Businesses 24/7
+    </h1>
+    <p class="hero-sub">AI Agents &nbsp;•&nbsp; n8n Workflows &nbsp;•&nbsp; API Integrations &nbsp;•&nbsp; Business Automation</p>
+    <p class="hero-desc">
+      I'm Israel Olubukola, an automation expert specializing in AI-powered workflows that eliminate manual work and scale businesses.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-secondary">Hire Me →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat"><div class="stat-num">80%</div><div class="stat-label">Avg Workload Reduction</div></div>
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Automations Built</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Client Satisfaction</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="gradient-line"></div>
+
+<!-- ABOUT -->
+<section id="about" class="section-pad">
+  <div class="about-grid">
+    <div class="about-image-wrap reveal">
+      <div class="about-card">
+        <div class="about-avatar">IO</div>
+        <div class="about-name">Israel Olubukola</div>
+        <div class="about-role">AI Automation Engineer • Age 20</div>
+        <p class="about-bio">
+          A self-driven automation engineer with 3+ years building intelligent systems that transform how businesses operate. I specialize in designing end-to-end automation architectures that eliminate friction, reduce costs, and scale results — without adding headcount.
+        </p>
+        <div class="skill-tags">
+          <span class="tag">n8n</span><span class="tag">OpenAI</span><span class="tag">APIs</span>
+          <span class="tag">Zapier</span><span class="tag">Make</span><span class="tag">GoHighLevel</span>
+          <span class="tag purple">WhatsApp Bot</span><span class="tag purple">CRM</span>
+          <span class="tag purple">AI Agents</span><span class="tag purple">Webhooks</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Engineering the Future of <span>Business Automation</span></h2>
+      <p class="section-desc">
+        At 20, I've spent the last 3+ years obsessing over one thing: making businesses run smarter. I architect AI-powered automation systems that work around the clock — handling leads, onboarding clients, sending invoices, managing CRMs, and driving conversions — all without human intervention.
+        <br><br>
+        My approach blends deep technical expertise with strategic thinking. I don't just build workflows — I engineer scalable systems that create measurable business impact.
+      </p>
+      <div class="about-features">
+        <div class="feature-item">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-title">Rapid Deployment</div>
+          <div class="feature-desc">Systems live and running in days, not months.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🧠</div>
+          <div class="feature-title">AI-First Thinking</div>
+          <div class="feature-desc">Every workflow is built with intelligence at its core.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📈</div>
+          <div class="feature-title">Results-Driven</div>
+          <div class="feature-desc">Measurable ROI on every automation delivered.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔗</div>
+          <div class="feature-title">Full-Stack Integration</div>
+          <div class="feature-desc">Connect any tool, platform, or database seamlessly.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gradient-line"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="section-pad">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;margin-bottom:1rem;">
+      <div class="section-label">Track Record</div>
+      <h2 class="section-title" style="justify-content:center;">Results That <span>Speak for Themselves</span></h2>
+    </div>
+    <div class="exp-grid reveal">
+      <div class="exp-card">
+        <div class="exp-num">3+</div>
+        <div class="exp-label">Years building automation systems across SaaS, e-commerce, and marketing industries.</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">80%</div>
+        <div class="exp-label">Average reduction in manual workload reported by clients after deploying automation systems.</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">50+</div>
+        <div class="exp-label">Automation workflows built and deployed for businesses across multiple industries globally.</div>
+      </div>
+    </div>
+    <div class="exp-list reveal">
+      <div class="exp-list-item">
+        <div class="exp-dot"></div>
+        <div class="exp-item-text"><strong>SaaS & Tech Startups</strong>Automated onboarding, billing, support, and internal ops workflows.</div>
+      </div>
+      <div class="exp-list-item">
+        <div class="exp-dot"></div>
+        <div class="exp-item-text"><strong>E-Commerce & Retail</strong>Order processing, inventory alerts, abandoned cart recovery, and reviews.</div>
+      </div>
+      <div class="exp-list-item">
+        <div class="exp-dot"></div>
+        <div class="exp-item-text"><strong>Marketing Agencies</strong>Lead capture, nurture sequences, CRM sync, and reporting automation.</div>
+      </div>
+      <div class="exp-list-item">
+        <div class="exp-dot"></div>
+        <div class="exp-item-text"><strong>Real Estate & Services</strong>Appointment booking, follow-up sequences, and deal pipeline automation.</div>
+      </div>
+      <div class="exp-list-item">
+        <div class="exp-dot"></div>
+        <div class="exp-item-text"><strong>Increased Conversion Rates</strong>AI-powered follow-up systems that respond within seconds, boosting conversions.</div>
+      </div>
+      <div class="exp-list-item">
+        <div class="exp-dot"></div>
+        <div class="exp-item-text"><strong>Scalable Architecture</strong>Every system built to handle 10x growth without rebuilding from scratch.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gradient-line"></div>
+
+<!-- SERVICES -->
+<section id="services" class="section-pad">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">What I Do</div>
+      <h2 class="section-title">Services Built for <span>Scale & Speed</span></h2>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <div class="service-title">AI Automation Systems</div>
+        <p class="service-desc">End-to-end intelligent automation that handles lead capture, nurturing, customer support, and business ops — running 24/7 without human intervention.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <div class="service-title">n8n Workflow Development</div>
+        <p class="service-desc">Custom n8n workflows that connect your entire tech stack, automate repetitive processes, and trigger intelligent actions across any platform.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💬</div>
+        <div class="service-title">AI Chatbots & Agents</div>
+        <p class="service-desc">Conversational AI agents powered by OpenAI that handle support, sales, onboarding, and FAQ resolution with human-like accuracy.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔌</div>
+        <div class="service-title">API Integrations</div>
+        <p class="service-desc">Custom API connections that make your tools talk to each other — syncing data, triggering events, and eliminating data silos across platforms.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <div class="service-title">CRM Automation</div>
+        <p class="service-desc">Automate your entire CRM pipeline — contact scoring, deal updates, follow-up sequences, and pipeline reporting without lifting a finger.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏢</div>
+        <div class="service-title">Business Process Automation</div>
+        <p class="service-desc">Identify and eliminate bottlenecks across your operations — from HR and finance to marketing and customer success — with intelligent automation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gradient-line"></div>
+
+<!-- PROJECTS -->
+<section id="projects" class="section-pad">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">Portfolio</div>
+      <h2 class="section-title">Automation Systems <span>I've Built</span></h2>
+      <p class="section-desc" style="margin:0 auto;text-align:center;">Each project is a fully engineered automation system — click to explore the full case study.</p>
+    </div>
+    <div class="projects-grid reveal" id="projectsGrid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+</section>
+
+<div class="gradient-line"></div>
+
+<!-- CONTACT -->
+<section id="contact" class="section-pad">
+  <div class="contact-inner reveal">
+    <div class="section-label" style="text-align:center;">Let's Work Together</div>
+    <h2 class="section-title" style="text-align:center;">Let's Build Something <span>Powerful</span></h2>
+    <p class="section-desc" style="margin:0 auto;text-align:center;">
+      Ready to eliminate manual work and scale your business with intelligent automation? Let's talk about your project.
+    </p>
+    <div class="contact-btns">
+      <a href="mailto:Olofinisrael1@gmail.com" class="btn-primary">📧 Send Email</a>
+      <a href="https://wa.me/2348051991871" class="btn-wa" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="https://fiverr.com/your-profile" class="btn-fv" target="_blank">🟢 Hire on Fiverr</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Designed & Built by <span>Israel Olubukola</span> | Automation Engineer &nbsp;·&nbsp; © 2025</p>
+</footer>
+</div><!-- end homePage -->
+
+<!-- ════════════════════════════════════════ -->
+<!-- PROJECT PAGES (10 pages) -->
+<!-- ════════════════════════════════════════ -->
+<div id="projectPages"></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ─── PROJECT DATA ────────────────────────────────────────────────────
+const projects = [
+  {
+    id:1,
+    emoji:'🤖',
+    title:'AI Customer Support Agent',
+    desc:'24/7 intelligent support system that resolves tickets autonomously.',
+    tags:['n8n','OpenAI','API','Chatbot'],
+    gradient:'linear-gradient(135deg,#0a1628,#0d2040)',
+    subtitle:'A fully autonomous AI support agent that handles customer inquiries, resolves issues, and escalates complex cases — without a single human touch.',
+    overview:'This system integrates an OpenAI-powered conversational agent with your helpdesk, CRM, and knowledge base. It reads incoming tickets, understands intent, pulls relevant solutions, and responds with accurate, brand-aligned answers — all in under 3 seconds.',
+    problem:['Support teams drowning in repetitive tickets that follow the same resolution patterns','High wait times destroying customer satisfaction scores and retention','Night/weekend coverage gaps leaving customers frustrated','Human agents spending 70% of time on Tier-1 tickets instead of complex issues'],
+    solution:['Deployed an n8n workflow that captures every incoming support ticket via webhook or email parser','Passes the ticket content to a custom GPT-4 agent trained on company knowledge base and past resolutions','The AI generates context-aware responses, applies correct resolution steps, and sends replies automatically','Complex tickets get flagged and escalated to humans with a full AI-generated summary'],
+    steps:[
+      {title:'Ticket Ingestion',desc:'Incoming emails or form submissions trigger the n8n workflow via webhook.'},
+      {title:'Intent Classification',desc:'GPT-4 classifies the ticket type: billing, technical, refund, general inquiry.'},
+      {title:'Knowledge Retrieval',desc:'Agent queries the vector database for relevant solutions and past tickets.'},
+      {title:'Response Generation',desc:'AI crafts a personalized, accurate response using the company tone guide.'},
+      {title:'Auto-Reply & Logging',desc:'Response is sent automatically; ticket is logged in CRM with resolution status.'},
+      {title:'Escalation Logic',desc:'Tickets with low confidence scores are routed to human agents with full context.'},
+    ],
+    tools:['n8n','OpenAI GPT-4','Pinecone','Zendesk API','Gmail API','Notion'],
+    results:[{num:'85%',label:'Ticket Auto-Resolution'},{num:'< 3s',label:'Response Time'},{num:'92%',label:'CSAT Score'}],
+    features:['Multi-language support with automatic detection','Sentiment analysis for priority escalation','Custom knowledge base training','CRM integration for full context','Audit trail and performance dashboard'],
+  },
+  {
+    id:2,
+    emoji:'🎯',
+    title:'Lead Generation & Follow-Up Automation',
+    desc:'Automated lead capture, scoring, and AI-powered follow-up sequences.',
+    tags:['n8n','CRM','Email','AI'],
+    gradient:'linear-gradient(135deg,#0d1628,#1a0d30)',
+    subtitle:'A complete lead pipeline that captures, qualifies, scores, and follows up with leads automatically — maximizing conversions around the clock.',
+    overview:'This end-to-end system captures leads from multiple sources, enriches their data, scores them by conversion likelihood, and triggers personalized multi-channel follow-up sequences — all without manual intervention.',
+    problem:['Leads going cold because follow-up happens hours or days later','Sales reps manually entering data into CRMs, wasting hours daily','No consistent follow-up sequence — some leads get 10 touches, others get 1','Inability to prioritize high-value leads from low-value ones'],
+    solution:['n8n captures leads from web forms, ads, and social via API webhooks','Enrichment flow adds company data, LinkedIn profile, and intent signals','AI scores each lead 0–100 based on ICP match, behavior, and firmographics','Personalized email + SMS sequence fires automatically based on score tier'],
+    steps:[
+      {title:'Lead Capture',desc:'Forms, Facebook Ads, and LinkedIn Lead Gen trigger webhook to n8n.'},
+      {title:'Data Enrichment',desc:'Clearbit / Apollo APIs enrich the lead with company size, role, and industry.'},
+      {title:'AI Lead Scoring',desc:'GPT model scores the lead based on ICP criteria and assigns a tier.'},
+      {title:'CRM Sync',desc:'Lead is created in GoHighLevel or HubSpot with full enriched profile.'},
+      {title:'Sequence Trigger',desc:'Automated email/SMS sequence fires based on lead score tier.'},
+      {title:'Response Handling',desc:'Replies trigger AI qualification conversation before booking a call.'},
+    ],
+    tools:['n8n','GoHighLevel','OpenAI','Clearbit','Apollo.io','Twilio','Mailgun'],
+    results:[{num:'3x',label:'Conversion Rate'},{num:'< 60s',label:'Lead Response Time'},{num:'70%',label:'Time Saved on CRM Entry'}],
+    features:['Multi-source lead aggregation','Real-time data enrichment','AI lead scoring model','Personalized multi-channel sequences','Automatic meeting booking integration'],
+  },
+  {
+    id:3,
+    emoji:'🎬',
+    title:'AI Video Automation System',
+    desc:'Automated video creation pipeline from script to published content.',
+    tags:['AI','n8n','API','Content'],
+    gradient:'linear-gradient(135deg,#0d0a28,#1a0d28)',
+    subtitle:'A fully automated content pipeline that turns a single topic into a complete video — scripted, voiced, edited, and published — with zero manual work.',
+    overview:'This system takes a content topic or keyword, generates a complete video script using GPT-4, creates voiceover with ElevenLabs, assembles the video with stock footage, adds captions, and publishes directly to YouTube and social — all automatically.',
+    problem:['Content teams spending 8+ hours per video on scripting, recording, and editing','Inconsistent publishing schedule due to production bottlenecks','High production costs for regular video content','Difficulty scaling content output to multiple channels and formats'],
+    solution:['Topic input triggers the n8n automation pipeline','GPT-4 generates a structured video script with hook, body, and CTA','ElevenLabs generates professional AI voiceover from the script','Video assembly API combines footage, voiceover, and auto-captions','Finished video is uploaded to YouTube, TikTok, and Instagram automatically'],
+    steps:[
+      {title:'Topic Input',desc:'User submits a topic via form or Notion database entry.'},
+      {title:'Script Generation',desc:'GPT-4 creates a full script optimized for the target platform and audience.'},
+      {title:'Voiceover Creation',desc:'ElevenLabs generates natural-sounding voiceover from the script.'},
+      {title:'B-Roll Sourcing',desc:'Pexels/Pixabay API automatically sources relevant stock footage.'},
+      {title:'Video Assembly',desc:'Creatomate or Shotstack API assembles the full video with captions.'},
+      {title:'Multi-Platform Publish',desc:'Finished video uploads to YouTube, TikTok, and Instagram simultaneously.'},
+    ],
+    tools:['n8n','OpenAI GPT-4','ElevenLabs','Creatomate','YouTube API','Pexels API','Notion'],
+    results:[{num:'10x',label:'Content Output'},{num:'95%',label:'Production Cost Saved'},{num:'8hrs→10min',label:'Per Video Time'}],
+    features:['Auto-generated SEO titles and descriptions','Multi-platform simultaneous publishing','Brand voice consistency via custom prompts','Thumbnail auto-generation','Analytics tracking across platforms'],
+  },
+  {
+    id:4,
+    emoji:'📊',
+    title:'CRM Automation Workflow',
+    desc:'Fully automated CRM pipeline with AI deal tracking and follow-ups.',
+    tags:['CRM','n8n','GoHighLevel','AI'],
+    gradient:'linear-gradient(135deg,#0a1a14,#0d2818)',
+    subtitle:'An intelligent CRM system that manages your entire sales pipeline — updating deals, triggering follow-ups, and forecasting closures — without manual data entry.',
+    overview:"This workflow connects your lead sources, communication channels, and CRM platform into one unified automated system. Every touchpoint is tracked, every deal is updated, and every follow-up fires on the perfect schedule based on prospect behavior.",
+    problem:["Sales reps spending 3+ hours daily on CRM data entry instead of selling","Deal stages rarely updated — management flying blind on pipeline health","Follow-ups forgotten, leading to lost deals that were close to closing","No behavioral triggers — all follow-ups on fixed schedules regardless of engagement"],
+    solution:['All inbound messages (email, SMS, calls) automatically logged to CRM via webhooks','AI analyzes communication sentiment and updates deal health score','Behavioral triggers fire follow-up sequences when prospects open emails or visit pricing pages','Deal stage changes trigger automatic internal notifications and task creation'],
+    steps:[
+      {title:'Data Capture',desc:'All emails, calls, and messages sync to n8n via API integrations.'},
+      {title:'AI Analysis',desc:'GPT model analyzes conversation sentiment and intent signals.'},
+      {title:'CRM Update',desc:'Deal stage, notes, and health score automatically updated in real-time.'},
+      {title:'Task Creation',desc:'Follow-up tasks created for sales reps with AI-generated context.'},
+      {title:'Sequence Trigger',desc:'Behavioral events (email opens, link clicks) trigger targeted follow-up messages.'},
+      {title:'Reporting',desc:'Weekly pipeline reports auto-generated and sent to management.'},
+    ],
+    tools:['n8n','GoHighLevel','HubSpot API','OpenAI','Twilio','Gmail API','Slack'],
+    results:[{num:'90%',label:'Less Manual Data Entry'},{num:'40%',label:'Faster Deal Closure'},{num:'3hrs',label:'Saved Per Rep Daily'}],
+    features:['Behavioral trigger-based sequences','AI deal health scoring','Automatic task creation','Real-time pipeline visibility','Predictive close date forecasting'],
+  },
+  {
+    id:5,
+    emoji:'💬',
+    title:'WhatsApp AI Bot',
+    desc:'Intelligent WhatsApp assistant handling sales, support, and bookings.',
+    tags:['WhatsApp','AI','n8n','Chatbot'],
+    gradient:'linear-gradient(135deg,#031a0a,#062514)',
+    subtitle:'A conversational WhatsApp AI agent that handles sales inquiries, books appointments, answers FAQs, and qualifies leads — directly in WhatsApp.',
+    overview:"This system connects WhatsApp Business API to an AI agent that holds intelligent conversations, understands context across multiple messages, and performs real actions — booking calendars, creating CRM contacts, sending invoices — all within the WhatsApp interface.",
+    problem:["Business owners losing leads who WhatsApp outside business hours","Manual WhatsApp management consuming hours of staff time daily","Inconsistent responses to common questions damaging brand perception","No way to qualify leads or book appointments through WhatsApp"],
+    solution:['WhatsApp Business API connected to n8n via webhook for real-time message handling','GPT-4 maintains conversation context and handles multi-turn dialogue naturally','Intent detection routes conversations to sales, support, or booking workflows','Calendly/Acuity API integration allows direct appointment booking inside WhatsApp'],
+    steps:[
+      {title:'Message Received',desc:'Incoming WhatsApp message triggers n8n workflow via webhook.'},
+      {title:'Context Loading',desc:'Previous conversation history loaded from database for context continuity.'},
+      {title:'Intent Detection',desc:'AI classifies intent: inquiry, support, booking, or lead qualification.'},
+      {title:'Response Generation',desc:'GPT-4 generates contextual, personalized response with brand voice.'},
+      {title:'Action Execution',desc:'Bookings created, CRM updated, invoices sent — all within the conversation.'},
+      {title:'Handoff Logic',desc:'Complex conversations smoothly handed off to human agents with full history.'},
+    ],
+    tools:['n8n','WhatsApp Business API','OpenAI GPT-4','Calendly API','GoHighLevel','Twilio'],
+    results:[{num:'24/7',label:'Coverage'},{num:'80%',label:'Inquiries Automated'},{num:'5x',label:'Response Speed'}],
+    features:['Multi-turn conversation memory','Appointment booking inside WhatsApp','Lead qualification flow','Human handoff with full context','Media handling (images, docs, voice)'],
+  },
+  {
+    id:6,
+    emoji:'💰',
+    title:'Invoice & Payment Automation',
+    desc:'End-to-end invoice creation, sending, and payment reconciliation system.',
+    tags:['n8n','Stripe','API','Finance'],
+    gradient:'linear-gradient(135deg,#1a1400,#1f1a00)',
+    subtitle:'A complete billing automation system that generates invoices, sends reminders, processes payments, and reconciles accounts — with zero manual effort.',
+    overview:'This workflow automates the entire billing cycle — from project completion trigger to invoice generation, delivery, reminder sequences, payment processing, and automatic bookkeeping entries. No more chasing payments or manual invoice creation.',
+    problem:["Freelancers and agencies spending hours monthly creating and sending invoices","Late payments due to inconsistent follow-up on overdue invoices","Manual reconciliation between payment processor and accounting software","No automatic payment confirmation and receipt delivery to clients"],
+    solution:['Project completion or milestone trigger in project management tool fires the n8n workflow','AI generates a professional invoice with line items, tax calculations, and payment link','Invoice delivered via email with branded PDF attachment and Stripe payment link','Automated reminder sequence fires at 3, 7, and 14 days for unpaid invoices'],
+    steps:[
+      {title:'Trigger Event',desc:'Project milestone or time entry completion triggers the billing workflow.'},
+      {title:'Invoice Generation',desc:'n8n pulls project data and generates itemized invoice with payment link.'},
+      {title:'Delivery',desc:'Branded invoice PDF sent via email with Stripe payment link.'},
+      {title:'Reminder Sequence',desc:'Automated follow-ups at 3, 7, and 14 days for unpaid invoices.'},
+      {title:'Payment Processing',desc:'Stripe webhook confirms payment and triggers receipt + thank you message.'},
+      {title:'Bookkeeping Sync',desc:'Payment automatically logged in QuickBooks or Xero with correct categorization.'},
+    ],
+    tools:['n8n','Stripe API','QuickBooks API','PDF.co','Gmail API','Slack','Notion'],
+    results:[{num:'100%',label:'Invoice Automation'},{num:'60%',label:'Faster Payment Collection'},{num:'4hrs',label:'Saved Monthly'}],
+    features:['Auto invoice generation from project data','Multi-currency support','Automatic tax calculation','Smart reminder sequences','Instant bookkeeping reconciliation'],
+  },
+  {
+    id:7,
+    emoji:'📱',
+    title:'Social Media Automation',
+    desc:'AI-powered content creation and multi-platform scheduling system.',
+    tags:['AI','n8n','Content','Social'],
+    gradient:'linear-gradient(135deg,#1a0a1a,#28062e)',
+    subtitle:'A smart social media engine that creates, schedules, and publishes platform-optimized content across all channels — driven by AI and brand guidelines.',
+    overview:'This system transforms one content idea into a full week of platform-specific posts. GPT-4 adapts tone and format for each platform, generates hashtag sets, creates image prompts for AI-generated visuals, and schedules everything automatically.',
+    problem:["Marketing teams spending entire days creating and scheduling social content","Inconsistent posting schedule damaging algorithm performance and reach","One-size-fits-all content underperforming because it's not platform-optimized","No system for repurposing long-form content into multiple social formats"],
+    solution:['Content brief submitted to n8n triggers the complete content creation pipeline','GPT-4 generates platform-specific versions: Twitter thread, LinkedIn post, Instagram caption, TikTok script','DALL-E / Midjourney API generates custom visuals for each post','Buffer/Hootsuite API schedules all content with optimal posting times'],
+    steps:[
+      {title:'Content Brief',desc:'Topic, tone, and target audience submitted via form or Notion.'},
+      {title:'AI Content Creation',desc:'GPT-4 creates platform-optimized versions for each social channel.'},
+      {title:'Visual Generation',desc:'AI image generation creates custom graphics for each platform format.'},
+      {title:'Review Queue',desc:'Content enters optional human review queue in Notion before scheduling.'},
+      {title:'Auto-Schedule',desc:'Buffer API schedules posts at optimal engagement times for each platform.'},
+      {title:'Analytics Pull',desc:'Weekly performance data pulled and reported in dashboard.'},
+    ],
+    tools:['n8n','OpenAI GPT-4','DALL-E','Buffer API','Twitter API','LinkedIn API','Notion'],
+    results:[{num:'10x',label:'Content Volume'},{num:'6hrs',label:'Saved Weekly'},{num:'3x',label:'Engagement Increase'}],
+    features:['Platform-specific content optimization','AI visual generation','Optimal posting time algorithm','Content repurposing from long-form','Performance analytics dashboard'],
+  },
+  {
+    id:8,
+    emoji:'🧠',
+    title:'AI Knowledge Base Assistant',
+    desc:'Intelligent internal search and Q&A system trained on company knowledge.',
+    tags:['AI','OpenAI','API','Knowledge'],
+    gradient:'linear-gradient(135deg,#040d1a,#080a28)',
+    subtitle:'A custom AI assistant trained on your internal documentation that answers questions, finds information, and onboards new team members instantly.',
+    overview:"This RAG (Retrieval-Augmented Generation) system indexes all company documents, SOPs, wikis, and policies into a vector database. Team members ask questions in natural language and receive accurate, sourced answers in seconds — no more digging through Google Drive.",
+    problem:["New employees taking weeks to find basic information across scattered documentation","Team members interrupting colleagues for answers to questions already documented","Outdated information being used because no one knows which doc is current","Hours wasted searching through Google Drive, Notion, and email for procedures"],
+    solution:['All company documents ingested and chunked into Pinecone vector database','Semantic search retrieves the most relevant document sections for each query','GPT-4 synthesizes a clear, accurate answer with source citations','Slack bot integration allows queries directly from where teams work'],
+    steps:[
+      {title:'Document Ingestion',desc:'All Notion pages, Google Docs, and PDFs indexed into Pinecone vector DB.'},
+      {title:'Query Received',desc:'Question submitted via Slack command or web interface triggers n8n.'},
+      {title:'Semantic Search',desc:'Vector similarity search retrieves top relevant document chunks.'},
+      {title:'Answer Generation',desc:'GPT-4 synthesizes answer from retrieved context with source links.'},
+      {title:'Response Delivery',desc:'Answer delivered in Slack with source citations and confidence score.'},
+      {title:'Learning Loop',desc:'Unanswered questions flagged for knowledge base expansion.'},
+    ],
+    tools:['n8n','OpenAI GPT-4','Pinecone','Slack API','Notion API','Google Drive API'],
+    results:[{num:'90%',label:'Query Auto-Answer Rate'},{num:'< 5s',label:'Answer Retrieval Time'},{num:'80%',label:'Onboarding Time Saved'}],
+    features:['Multi-format document ingestion','Semantic similarity search','Source-cited responses','Slack and web interface','Automatic knowledge gap detection'],
+  },
+  {
+    id:9,
+    emoji:'🕷️',
+    title:'Data Scraping Automation',
+    desc:'Intelligent web scraping and data pipeline with auto-enrichment.',
+    tags:['n8n','API','Data','Scraping'],
+    gradient:'linear-gradient(135deg,#0a1420,#0d1a2c)',
+    subtitle:'A smart data extraction system that continuously scrapes, cleans, enriches, and delivers structured business data — fully automated and scalable.',
+    overview:"This system uses intelligent web scraping combined with AI data cleaning and enrichment to build constantly-updated datasets. Whether it's competitor pricing, lead lists, market data, or product catalogs — the pipeline runs on schedule and delivers clean, actionable data.",
+    problem:["Manual data collection taking entire days of tedious copy-paste work","Scraped data requiring hours of manual cleaning before it's usable","Static datasets going stale within days in fast-moving markets","No system for monitoring competitor pricing or market changes continuously"],
+    solution:['Scheduled n8n workflows trigger scraping jobs across target URLs','AI-powered data cleaning normalizes inconsistent formats and removes noise','Enrichment flow cross-references scraped data with third-party APIs','Cleaned, enriched data delivered to Google Sheets, CRM, or database automatically'],
+    steps:[
+      {title:'Target Configuration',desc:'URLs, selectors, and schedule configured in the n8n workflow settings.'},
+      {title:'Scheduled Scraping',desc:'Bright Data / Apify runs scheduled scraping job and returns raw data.'},
+      {title:'AI Data Cleaning',desc:'GPT model normalizes formats, removes duplicates, and flags anomalies.'},
+      {title:'Data Enrichment',desc:'Apollo/Clearbit API enriches scraped contacts with additional data points.'},
+      {title:'Deduplication',desc:'Existing records checked before inserting to prevent database bloat.'},
+      {title:'Delivery',desc:'Clean data pushed to Google Sheets, Airtable, CRM, or custom database.'},
+    ],
+    tools:['n8n','Bright Data','Apify','OpenAI','Clearbit','Google Sheets API','Airtable'],
+    results:[{num:'1000s',label:'Records/Day Processed'},{num:'99%',label:'Data Accuracy'},{num:'8hrs→Auto',label:'Weekly Data Collection'}],
+    features:['Anti-bot detection bypass','AI-powered data normalization','Scheduled continuous collection','Multi-source aggregation','Automatic duplicate detection'],
+  },
+  {
+    id:10,
+    emoji:'🔗',
+    title:'Custom API Integration System',
+    desc:'Seamless multi-platform data sync and event-driven integration architecture.',
+    tags:['API','n8n','Integration','Custom'],
+    gradient:'linear-gradient(135deg,#0a0d1a,#14102e)',
+    subtitle:'A custom API integration layer that connects your entire software stack, syncs data in real-time, and eliminates data silos across all platforms.',
+    overview:'This system acts as the central nervous system of your tech stack — receiving events from one platform, transforming the data, and triggering the right actions across multiple connected systems simultaneously, all with error handling and retry logic.',
+    problem:["Critical data living in silos across 5+ different software platforms","Manual export/import processes breaking workflows and causing data loss","No real-time sync — teams working with data that's hours or days old","Custom integrations requiring expensive developer time for every change"],
+    solution:['Central n8n hub receives webhooks and API events from all connected platforms','Transformation layer normalizes data schemas across different systems','Intelligent routing sends data to the correct destinations with field mapping','Error handling, retry logic, and alerting ensure zero data loss'],
+    steps:[
+      {title:'Event Triggered',desc:'Source platform sends webhook to central n8n integration hub.'},
+      {title:'Data Validation',desc:'Incoming payload validated against expected schema before processing.'},
+      {title:'Transformation',desc:'Data normalized, fields mapped, and format converted for destination.'},
+      {title:'Routing Logic',desc:'Conditions determine which downstream systems receive the data.'},
+      {title:'API Delivery',desc:'Transformed data pushed to all destination APIs simultaneously.'},
+      {title:'Error Handling',desc:'Failed deliveries logged, retried, and alerted via Slack notification.'},
+    ],
+    tools:['n8n','REST APIs','GraphQL','Webhooks','Postman','Slack API','Custom Scripts'],
+    results:[{num:'Real-time',label:'Data Sync Speed'},{num:'0',label:'Data Loss Incidents'},{num:'15+',label:'Platforms Connected'}],
+    features:['Real-time bidirectional sync','Custom data transformation logic','Automatic error recovery','Full audit logging','Zero-downtime deployment'],
+  },
+];
+
+// ─── RENDER PROJECT CARDS ────────────────────────────────────────────
+function renderProjectCards(){
+  const grid = document.getElementById('projectsGrid');
+  grid.innerHTML = projects.map(p=>`
+    <div class="project-card" onclick="showProject(${p.id})">
+      <div class="project-img" style="background:${p.gradient}">
+        <div class="project-img-inner">${p.emoji}</div>
+        <div class="project-img-overlay"></div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">${p.title}</div>
+        <div class="project-desc">${p.desc}</div>
+        <div class="project-tags">${p.tags.map(t=>`<span class="project-tag">${t}</span>`).join('')}</div>
+        <a class="btn-view">View Case Study →</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── RENDER PROJECT PAGES ────────────────────────────────────────────
+function renderProjectPages(){
+  const container = document.getElementById('projectPages');
+  container.innerHTML = projects.map(p=>`
+    <div id="page${p.id}" class="page">
+      <div class="page-hero">
+        <div class="page-hero-orb page-hero-orb1"></div>
+        <div class="page-hero-orb page-hero-orb2"></div>
+        <a href="#" class="page-back" onclick="showHome();return false;">← Back to Portfolio</a>
+        <div class="section-label">${p.tags.join(' · ')}</div>
+        <h1 class="page-title">${p.title}</h1>
+        <p class="page-subtitle">${p.subtitle}</p>
+        <div class="page-img" style="background:${p.gradient}">${p.emoji}</div>
+      </div>
+      <div class="page-content">
+        <div class="page-section">
+          <h3>📋 Overview</h3>
+          <p>${p.overview}</p>
+        </div>
+        <div class="page-section">
+          <h3>⚠️ The Problem</h3>
+          <ul>${p.problem.map(i=>`<li>${i}</li>`).join('')}</ul>
+        </div>
+        <div class="page-section">
+          <h3>✅ The Solution</h3>
+          <ul>${p.solution.map(i=>`<li>${i}</li>`).join('')}</ul>
+        </div>
+        <div class="page-section">
+          <h3>⚙️ How It Works</h3>
+          <div class="steps">${p.steps.map((s,i)=>`
+            <div class="step">
+              <div class="step-num">${i+1}</div>
+              <div class="step-text"><strong>${s.title}</strong>${s.desc}</div>
+            </div>
+          `).join('')}</div>
+        </div>
+        <div class="page-section">
+          <h3>🛠️ Tools Used</h3>
+          <div class="tools-grid">${p.tools.map(t=>`<span class="tool-chip">${t}</span>`).join('')}</div>
+        </div>
+        <div class="page-section">
+          <h3>🖼️ Workflow Visual</h3>
+          <div class="workflow-placeholder">
+            <span>🗂️</span>
+            Workflow screenshot / diagram placeholder — upload your n8n workflow screenshot here.
+          </div>
+        </div>
+        <div class="page-section">
+          <h3>📈 Results</h3>
+          <div class="results-grid">${p.results.map(r=>`
+            <div class="result-card">
+              <div class="result-num">${r.num}</div>
+              <div class="result-label">${r.label}</div>
+            </div>
+          `).join('')}</div>
+        </div>
+        <div class="page-section">
+          <h3>⭐ Key Features</h3>
+          <ul>${p.features.map(f=>`<li>${f}</li>`).join('')}</ul>
+        </div>
+        <div class="cta-section">
+          <div class="cta-title">Want a system like this?</div>
+          <p class="cta-desc">Let's build it. I'll design and deploy a custom automation system tailored to your business — ready to go live in days.</p>
+          <a href="https://wa.me/2348051991871" class="btn-primary" style="display:inline-block;">Hire Me →</a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────
+function showProject(id){
+  document.getElementById('homePage').classList.remove('active');
+  document.querySelectorAll('#projectPages .page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showHome(){
+  document.querySelectorAll('#projectPages .page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('homePage').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ─── HAMBURGER ───────────────────────────────────────────────────────
+function toggleMenu(){
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+function closeMobile(){
+  document.getElementById('mobileNav').classList.remove('open');
+}
+
+// ─── SCROLL REVEAL ───────────────────────────────────────────────────
+function initReveal(){
+  const els = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    },{threshold:0.05,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(el=>observer.observe(el));
+    // Trigger immediately for elements already in view
+    setTimeout(()=>{
+      els.forEach(el=>{
+        const rect=el.getBoundingClientRect();
+        if(rect.top < window.innerHeight) el.classList.add('visible');
+      });
+    },100);
+  } else {
+    // Fallback: just show everything
+    els.forEach(el=>el.classList.add('visible'));
+  }
+}
+
+
+// ─── INIT ──────────────────────────────────────────────────
+renderProjectCards();
+renderProjectPages();
+setTimeout(()=>{
+  initReveal();
+  document.querySelectorAll('.exp-card,.service-card,.project-card,.feature-item').forEach((el,i)=>{
+    el.style.transitionDelay = (i*0.06)+'s';
+  });
+},80);
+</script>
+</body>
+</html>
